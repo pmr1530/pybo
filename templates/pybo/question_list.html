@@ -1,25 +1,24 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{%static 'bootstrap.min.css' %}">
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
 <div class="container my-3">
     <table class="table">
         <thead>
         <tr class="thead-dark">
             <th>번호</th>
             <th>제목</th>
-            <th>작성 일시</th>
+            <th>작성일시</th>
         </tr>
         </thead>
         <tbody>
         {% if question_list %}
         {% for question in question_list %}
         <tr>
-            <td>{{forloop.counter}}</td>
+            <td>{{ forloop.counter }}</td>
             <td>
-                <a href="{% url 'pybo:detail' question.id %}">
-                    {{ question.subject}}
-                </a>
+                <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
             </td>
-            <td>{{question.create_date}}</td>
+            <td>{{ question.create_date }}</td>
         </tr>
         {% endfor %}
         {% else %}
@@ -30,14 +29,4 @@
         </tbody>
     </table>
 </div>
-
-{% if question_list %}
-    <ul>
-        {% for question in question_list %}
-            <li><a href="{%url 'pybo:detail' question.id %}">{{question.subject}}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p> 질문이 없습니다. </p>
-{% endif %}
-
+{% endblock %}
