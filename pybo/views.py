@@ -1,7 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 from django.utils import timezone
+from .forms import QuestionForm
 
+def question_create(request):
+    """
+    질문 등록
+    """
+    form = QuestionForm()
+    return render(request, 'pybo/question_form.html', {'form':form})
 
 def index(request):
     """
