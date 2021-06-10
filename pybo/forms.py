@@ -10,3 +10,10 @@ class QuestionForm(forms.ModelForm):
         }
         # widget 항목 삭제
 
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['content']
+        labels = {
+            'content' : '답변내용',
+        }
