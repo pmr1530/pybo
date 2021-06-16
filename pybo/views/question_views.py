@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models.fields import PositiveBigIntegerField
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from ..forms import QuestionForm
-from ..models import Question
+from ..models import Question, Photo
 
 @login_required(login_url='common:login')
 def question_create(request):
@@ -18,7 +19,12 @@ def question_create(request):
             question.author = request.user
             question.create_date = timezone.now()
             question.save()
-            
+            #사진 첨부
+            for img in request.FILES.getlist('imgs'):
+                photo = Photo()
+                photo.post = question
+                photo.image = img
+                photo.save()
             return redirect('pybo:index')
         
     else:
